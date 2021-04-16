@@ -30,7 +30,6 @@
 #define CONFIG_KEY_DEFAULT_USER_IMAGE   "default-user-image"
 #define CONFIG_KEY_KEYBOARD             "keyboard"
 #define CONFIG_KEY_READER               "reader"
-#define CONFIG_KEY_CLOCK_FORMAT         "clock-format"
 #define CONFIG_KEY_ACTIVE_MONITOR       "active-monitor"
 #define CONFIG_KEY_POSITION             "position"
 #define CONFIG_KEY_PANEL_POSITION       "panel-position"

@@ -98,9 +98,6 @@ static GtkWidget    *last_show_win;
 static gboolean      changing_password;
 
 
-/* Clock */
-static gchar *clock_format;
-
 /* Session */
 static gchar *current_session;
 
@@ -189,26 +186,59 @@ gboolean pw_set_win_key_press_event_cb         (GtkWidget *widget, GdkEventKey *
 static void process_prompts (LightDMGreeter *greeter);
 static void start_authentication (const gchar *username);
 
+
+
+/*
+ * Translate @str according to the locale defined by LC_TIME; unlike
+ * dcgettext(), the translation is still taken from the LC_MESSAGES
+ * catalogue and not the LC_TIME one.
+ */
+static const gchar *
+translate_time_format_string (const char *str)
+{
+	const char *locale = g_getenv ("LC_TIME");
+	const char *res;
+	char *sep;
+	locale_t old_loc;
+	locale_t loc = (locale_t)0;
+
+	if (locale)
+		loc = newlocale (LC_MESSAGES_MASK, locale, (locale_t)0);
+
+	old_loc = uselocale (loc);
+
+	sep = strchr (str, '\004');
+	res = g_dpgettext (GETTEXT_PACKAGE, str, sep ? sep - str + 1 : 0);
+
+	uselocale (old_loc);
+
+	if (loc != (locale_t)0)
+		freelocale (loc);
+
+	return res;
+}
+
+
 /* Clock */
 static gboolean
 clock_timeout_thread (gpointer data)
 {
-    GtkLabel *clock_label = GTK_LABEL (data);
+	GtkLabel *clock_label = GTK_LABEL (data);
 
-    GDateTime *dt = NULL;
+	GDateTime *dt = NULL;
 
-    dt = g_date_time_new_now_local ();
-    if (dt) {
-        gchar *fm = g_date_time_format (dt, clock_format);
-        gchar *markup = g_markup_printf_escaped ("<b><span foreground=\"white\">%s</span></b>", fm);
-        gtk_label_set_markup (GTK_LABEL (clock_label), markup);
-        g_free (fm);
-        g_free (markup);
+	dt = g_date_time_new_now_local ();
+	if (dt) {
+		gchar *fm = g_date_time_format (dt, translate_time_format_string (N_("%B %-d %Y  %l:%M %p")));
+		gchar *markup = g_markup_printf_escaped ("<b><span foreground=\"white\">%s</span></b>", fm);
+		gtk_label_set_markup (GTK_LABEL (clock_label), markup);
+		g_free (fm);
+		g_free (markup);
 
-        g_date_time_unref (dt);
-    }
+		g_date_time_unref (dt);
+	}
 
-    return TRUE;
+	return TRUE;
 }
 
 static void
@@ -1079,6 +1109,7 @@ process_prompts (LightDMGreeter *greeter)
 		const gchar *filter_msg_052 = "Password Expiration Warning";
 		const gchar *filter_msg_060 = "Duplicate Login Notification";
 		const gchar *filter_msg_070 = "Authentication Failure";
+		const gchar *filter_msg_071 = "Deleted Account";
 		const gchar *filter_msg_080 = "Account Locking";
 		const gchar *filter_msg_090 = "Account Expiration";
 		const gchar *filter_msg_100 = "Password Expiration";
@@ -1094,14 +1125,20 @@ process_prompts (LightDMGreeter *greeter)
             (strstr (message->text, filter_msg_020) != NULL)) {
 			changing_password = TRUE;
 			show_ask_window (_("Password Expiration"),
-					_("Your password has expired.\nPlease change your password immediately."),
-					_("Changing Password"), _("Cancel"), "req_no_response");
+                             _("Your password has expired.\n"
+                               "Please change your password immediately."),
+                             _("Changing Password"),
+                             _("Cancel"),
+                             "req_no_response");
 			continue;
 		} else if (g_str_has_prefix (message->text, filter_msg_030)) {
 			changing_password = TRUE;
 			show_ask_window (_("Temporary Password Warning"),
-					_("Your password has been issued temporarily.\nFor security reasons, please change your password immediately."),
-					_("Changing Password"), _("Cancel"), "req_no_response");
+                             _("Your password has been issued temporarily.\n"
+                               "For security reasons, please change your password immediately."),
+                             _("Changing Password"),
+                             _("Cancel"),
+                             "req_no_response");
 			continue;
 		} else if (g_str_has_prefix (message->text, filter_msg_040)) {
 			gchar *msg = NULL;
@@ -1109,20 +1146,20 @@ process_prompts (LightDMGreeter *greeter)
 			if (g_strv_length (tokens) > 1) {
 				if (g_str_equal (tokens[1], "1")) {
 					msg = g_strdup_printf (_("Please change your password for security.\n"
-                                           "If you do not change your password within %s day, "
-                                           "your password expires.You can no longer log in.\n"
-                                           "Do you want to change password now?"), tokens[1]);
+                                             "If you do not change your password within %s day, "
+                                             "your password expires.You can no longer log in.\n"
+                                             "Do you want to change password now?"), tokens[1]);
 				} else {
 					msg = g_strdup_printf (_("Please change your password for security.\n"
-                                           "If you do not change your password within %s days, "
-                                           "your password expires.You can no longer log in.\n"
-                                           "Do you want to change password now?"), tokens[1]);
+                                             "If you do not change your password within %s days, "
+                                             "your password expires.You can no longer log in.\n"
+                                             "Do you want to change password now?"), tokens[1]);
 				}
 			} else {
 				msg = g_strdup (_("Please change your password for security.\n"
-                                "If you do not change your password within a few days, "
-                                "your password expires.You can no longer log in.\n"
-                                "Do you want to change password now?"));
+                                  "If you do not change your password within a few days, "
+                                  "your password expires.You can no longer log in.\n"
+                                  "Do you want to change password now?"));
 			}
 			g_strfreev (tokens);
 
@@ -1137,18 +1174,17 @@ process_prompts (LightDMGreeter *greeter)
 			if (g_strv_length (tokens) > 2) {
 				if (g_str_equal (tokens[1], "1")) {
 					msg = g_strdup_printf (_("Your account will not be available after %s.\n"
-								"Your account will expire in %s day"),
-							tokens[1], tokens[2]);
+                                             "Your account will expire in %s day"),
+                                           tokens[1], tokens[2]);
 				} else {
 					msg = g_strdup_printf (_("Your account will not be available after %s.\n"
-								"Your account will expire in %s days"),
-							tokens[1], tokens[2]);
+                                             "Your account will expire in %s days"),
+                                           tokens[1], tokens[2]);
 				}
 			}
 			g_strfreev (tokens);
 
-			show_msg_window (_("Account Expiration Warning"),
-					msg, _("Ok"), "ACCT_EXP_OK");
+			show_msg_window (_("Account Expiration Warning"), msg, _("Ok"), "ACCT_EXP_OK");
 			g_free (msg);
 
 			continue;
@@ -1158,18 +1194,17 @@ process_prompts (LightDMGreeter *greeter)
 			if (g_strv_length (tokens) > 2) {
 				if (g_str_equal (tokens[1], "1")) {
 					msg = g_strdup_printf (_("Your organization will not be available after %s.\n"
-								"Your organization will expire in %s day"),
-							tokens[1], tokens[2]);
+                                             "Your organization will expire in %s day"),
+                                           tokens[1], tokens[2]);
 				} else {
 					msg = g_strdup_printf (_("Your organization will not be available after %s.\n"
-								"Your organization will expire in %s days"),
-							tokens[1], tokens[2]);
+                                             "Your organization will expire in %s days"),
+                                           tokens[1], tokens[2]);
 				}
 			}
 			g_strfreev (tokens);
 
-			show_msg_window (_("Division Expiration Warning"),
-					msg, _("Ok"), "DEPT_EXP_OK");
+			show_msg_window (_("Division Expiration Warning"), msg, _("Ok"), "DEPT_EXP_OK");
 			g_free (msg);
 
 			continue;
@@ -1179,18 +1214,17 @@ process_prompts (LightDMGreeter *greeter)
 			if (g_strv_length (tokens) > 2) {
 				if (g_str_equal (tokens[1], "1")) {
 					msg = g_strdup_printf (_("Your password will not be available after %s.\n"
-								"Your password will expire in %s day"),
-							tokens[1], tokens[2]);
+                                             "Your password will expire in %s day"),
+                                           tokens[1], tokens[2]);
 				} else {
 					msg = g_strdup_printf (_("Your password will not be available after %s.\n"
-								"Your password will expire in %s days"),
-							tokens[1], tokens[2]);
+                                             "Your password will expire in %s days"),
+                                           tokens[1], tokens[2]);
 				}
 			}
 			g_strfreev (tokens);
 
-			show_msg_window (_("Passowrd Expiration Warning"),
-					msg, _("Ok"), "PASS_EXP_OK");
+			show_msg_window (_("Passowrd Expiration Warning"), msg, _("Ok"), "PASS_EXP_OK");
 			g_free (msg);
 
 			continue;
@@ -1218,8 +1252,7 @@ process_prompts (LightDMGreeter *greeter)
 				g_free (markup);
 			}
 
-			show_msg_window (_("Duplicate Login Notification"),
-					msg->str, _("Ok"), "DUPLICATE_LOGIN_OK");
+			show_msg_window (_("Duplicate Login Notification"), msg->str, _("Ok"), "DUPLICATE_LOGIN_OK");
 			g_string_free (msg, TRUE);
 
 			continue;
@@ -1227,55 +1260,71 @@ process_prompts (LightDMGreeter *greeter)
 			gchar *msg = NULL;
 			gchar **tokens = g_strsplit (message->text, ":", -1);
 			if (g_strv_length (tokens) > 1) {
-				msg = g_strdup_printf (_("Authentication Failure\n\nYou have %s login attempts remaining.\n"
-							"You can no longer log in when the maximum number of login attempts is exceeded."), tokens[1]);
+				msg = g_strdup_printf (_("Authentication Failure\n\n"
+                                         "You have %s login attempts remaining.\n"
+                                         "You can no longer log in when the maximum number of login "
+                                         "attempts is exceeded."), tokens[1]);
 			} else {
-				msg = g_strdup_printf (_("Login Failure (Authentication Failure)"));
+				msg = g_strdup (_("The user could not be authenticated due to an unknown error.\n"
+                                  "Please contact the administrator."));
 			}
 			g_strfreev (tokens);
 			display_warning_message (LIGHTDM_MESSAGE_TYPE_ERROR, msg);
 			g_free (msg);
 			break;
+		} else if (g_str_has_prefix (message->text, filter_msg_071)) {
+			gchar *msg = g_strdup (_("This account has deleted and is no longer available.\n"
+                                     "Please contact the administrator."));
+			display_warning_message (LIGHTDM_MESSAGE_TYPE_ERROR, msg);
+			g_free (msg);
+			break;
 		} else if (g_str_has_prefix (message->text, filter_msg_080)) {
-			gchar *msg = g_strdup_printf (_("Your account has been locked because you have exceeded the number of login attempts.\n"
-						"Please try again in a moment."));
+			gchar *msg = g_strdup (_("Your account has been locked "
+                                     "because you have exceeded the number of login attempts.\n"
+                                     "Please try again in a moment."));
 			display_warning_message (LIGHTDM_MESSAGE_TYPE_ERROR, msg);
 			g_free (msg);
 			break;
 		} else if (g_str_has_prefix (message->text, filter_msg_090)) {
-			gchar *msg = g_strdup_printf (_("This account has expired and is no longer available.\n"
-						"Please contact the administrator."));
+			gchar *msg = g_strdup (_("This account has expired and is no longer available.\n"
+                                     "Please contact the administrator."));
 			display_warning_message (LIGHTDM_MESSAGE_TYPE_ERROR, msg);
 			g_free (msg);
 			break;
 		} else if (g_str_has_prefix (message->text, filter_msg_100)) {
-			gchar *msg = g_strdup_printf (_("The password for your account has expired.\n"
-						"Please contact the administrator."));
+			gchar *msg = g_strdup (_("The password for your account has expired.\n"
+                                     "Please contact the administrator."));
 			display_warning_message (LIGHTDM_MESSAGE_TYPE_ERROR, msg);
 			g_free (msg);
 			break;
 		} else if (g_str_has_prefix (message->text, filter_msg_110)) {
-			gchar *msg = g_strdup_printf (_("Login Failure (Duplicate Login)"));
+			gchar *msg = g_strdup (_("You are already logged in. "
+                                     "Log out of the other device and try again. "
+                                     "If the problem persists, please contact your administrator."));
 			display_warning_message (LIGHTDM_MESSAGE_TYPE_ERROR, msg);
 			g_free (msg);
 			break;
 		} else if (g_str_has_prefix (message->text, filter_msg_120)) {
-			gchar *msg = g_strdup_printf (_("Due to the expiration of your organization, this account is no longer available.\nPlease contact the administrator."));
+			gchar *msg = g_strdup (_("Due to the expiration of your organization, "
+                                     "this account is no longer available.\n"
+                                     "Please contact the administrator."));
 			display_warning_message (LIGHTDM_MESSAGE_TYPE_ERROR, msg);
 			g_free (msg);
 			break;
 		} else if (g_str_has_prefix (message->text, filter_msg_130)) {
-			gchar *msg = g_strdup_printf (_("Login attempts exceeded the number of times, so you cannot login for a certain period of time.\nPlease try again in a moment."));
+			gchar *msg = g_strdup (_("Login attempts exceeded the number of times, "
+                                     "so you cannot login for a certain period of time.\n"
+                                     "Please try again in a moment."));
 			display_warning_message (LIGHTDM_MESSAGE_TYPE_ERROR, msg);
 			g_free (msg);
 			break;
 		} else if (g_str_has_prefix (message->text, filter_msg_140)) {
-			gchar *msg = g_strdup_printf (_("Trial period has expired."));
+			gchar *msg = g_strdup (_("Trial period has expired."));
 			display_warning_message (LIGHTDM_MESSAGE_TYPE_ERROR, msg);
 			g_free (msg);
 			break;
 		} else if (g_str_has_prefix (message->text, filter_msg_150)) {
-			gchar *msg = g_strdup_printf (_("Time error occurred."));
+			gchar *msg = g_strdup (_("Time error occurred."));
 			display_warning_message (LIGHTDM_MESSAGE_TYPE_ERROR, msg);
 			g_free (msg);
 			break;
@@ -1321,15 +1370,15 @@ process_prompts (LightDMGreeter *greeter)
 
 			/* for pam-gooroom and Linux-PAM, libpwquality */
 			if ((strstr (message->text, "Current password: ") != NULL) ||
-					(strstr (message->text, _("Current password: ")) != NULL)) {
+                (strstr (message->text, _("Current password: ")) != NULL)) {
 				title = _("Changing Password - [Step 1]");
 				prompt_label = _("Enter current password :");
 			} else if ((strstr (message->text, "New password: ") != NULL) ||
-					(strstr (message->text, _("New password: ")) != NULL)) {
+                       (strstr (message->text, _("New password: ")) != NULL)) {
 				title = _("Changing Password - [Step 2]");
 				prompt_label = _("Enter new password :");
 			} else if ((strstr (message->text, "Retype new password: ") != NULL) ||
-					(strstr (message->text, _("Retype new password: ")) != NULL)) {
+                       (strstr (message->text, _("Retype new password: ")) != NULL)) {
 				title = _("Changing Password - [Step 3]");
 				prompt_label = _("Retype new password :");
 			} else {
@@ -1857,8 +1906,11 @@ authentication_complete_cb (LightDMGreeter *greeter)
 			gtk_info_bar_get_message_type (login_win_infobar) != GTK_MESSAGE_ERROR;
 		if (prompted)
 		{
-			if (!have_pam_error)
-				set_message_label (LIGHTDM_MESSAGE_TYPE_ERROR, _("Login Failure (Authentication Failure)"));
+			if (!have_pam_error) {
+				set_message_label (LIGHTDM_MESSAGE_TYPE_ERROR,
+                                   _("Authentication Failure\n"
+                                     "Please check the username and password and try again."));
+			}
 			start_authentication (lightdm_greeter_get_authentication_user (greeter));
 		}
 		else
@@ -1870,9 +1922,9 @@ authentication_complete_cb (LightDMGreeter *greeter)
 
 		if (changing_password) {
 			show_msg_window (_("Failure Of Changing Password"),
-					_("Failed to change password.\nPlease try again."),
-					_("Ok"),
-					"CHPASSWD_FAILURE_OK");
+                             _("Failed to change password.\nPlease try again."),
+                             _("Ok"),
+                             "CHPASSWD_FAILURE_OK");
 		}
 	}
 }
@@ -2081,8 +2133,6 @@ main (int argc, char **argv)
 	gtk_overlay_add_overlay (screen_overlay, msg_win);
 	gtk_overlay_add_overlay (screen_overlay, panel_box);
 
-	clock_format = config_get_string (NULL, CONFIG_KEY_CLOCK_FORMAT, "%F      %p %I:%M");
-
 	GtkCssProvider *provider = gtk_css_provider_new ();
 	gtk_css_provider_load_from_resource (provider, "/kr/gooroom/greeter/theme.css");
 	gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
@@ -2126,6 +2176,9 @@ main (int argc, char **argv)
 	g_strfreev (config_groups);
 
 	greeter_background_connect (greeter_background, gdk_screen_get_default ());
+
+	/* set default session */
+	set_session (lightdm_greeter_get_default_session_hint (greeter));
 
 	const gchar *user_name;
 	gboolean logged_in = FALSE;
