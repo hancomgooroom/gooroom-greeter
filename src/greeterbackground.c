@@ -429,7 +429,10 @@ monitor_draw_background (const Monitor* monitor,
 	{
 		case BACKGROUND_TYPE_IMAGE:
 			if(background->options.image) {
+				GdkRGBA black = {0x0000, 0x0000, 0x0000, 0.7};
 				gdk_cairo_set_source_pixbuf(cr, background->options.image, 0, 0);
+				cairo_paint(cr);
+				gdk_cairo_set_source_rgba (cr, &black);
 				cairo_paint(cr);
 			}
 			break;

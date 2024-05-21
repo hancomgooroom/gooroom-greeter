@@ -3,7 +3,6 @@
 # Copyright (C) 2015-2019 Gooroom <gooroom@gooroom.kr>
 # This file is distributed under the same license as the gooroom-greeter package.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: gooroom-greeter\n"
@@ -340,7 +339,7 @@ msgstr "평가판 사용기간을 확인할 수 없습니다."
 # 주의, Linux-PAM 의 "Current %s password: "의 번역과 동일
 #: ../src/greeter-window.c:929
 msgid "Current password: "
-msgstr "현재  암호:"
+msgstr "현재 암호: "
 
 #: ../src/greeter-window.c:931
 msgid "Changing Password - [Step 1]"
@@ -353,7 +352,7 @@ msgstr "현재 비밀번호 입력 :"
 # 주의, Linux-PAM / libpwquality의 "New %s password: " 의 번역과 동일
 #: ../src/greeter-window.c:934
 msgid "New password: "
-msgstr "새  암호:"
+msgstr "새 암호: "
 
 #: ../src/greeter-window.c:936
 msgid "Changing Password - [Step 2]"
@@ -366,7 +365,7 @@ msgstr "새 비밀번호 입력 :"
 # 주의, Linux-PAM / libpwquality의 "Retype new %s password: " 의 번역과 동일
 #: ../src/greeter-window.c:939
 msgid "Retype new password: "
-msgstr "새  암호 다시 입력:"
+msgstr "새 암호 다시 입력: "
 
 #: ../src/greeter-window.c:941
 msgid "Changing Password - [Step 3]"
