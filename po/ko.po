@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gooroom-greeter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-14 11:24+0900\n"
+"POT-Creation-Date: 2024-07-15 11:20+0900\n"
 "PO-Revision-Date: 2019-09-04 17:37-0400\n"
 "Last-Translator: Gooroom <gooroom@gooroom.kr>\n"
 "Language-Team: Gooroom <gooroom@gooroom.kr>\n"
@@ -16,32 +16,34 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/greeter-window.c:315 ../src/greeter-window.c:341
-#: ../src/greeter-window.c:418 ../src/greeter-window.c:1987
+#: ../src/greeter-window.c:355 ../src/greeter-window.c:381
+#: ../src/greeter-window.c:458 ../src/greeter-window.c:2048
 msgid "Ok"
 msgstr "확인"
 
-#: ../src/greeter-window.c:419 ../src/greeter-window.c:618
-#: ../src/greeter-window.c:628 ../src/greeter-window.c:1988
+#: ../src/greeter-window.c:459 ../src/greeter-window.c:658
+#: ../src/greeter-window.c:668 ../src/greeter-window.c:2049
 msgid "Cancel"
 msgstr "취소"
 
 # 주의, Linux-PAM 의 "You are required to change your password immediately (administrator enforced)."의 번역과 일치해야함
-#: ../src/greeter-window.c:584
+#: ../src/greeter-window.c:624
 msgid ""
-"You are required to change your password immediately (administrator enforced)."
+"You are required to change your password immediately (administrator "
+"enforced)."
 msgstr "암호를 빨리 변경해 주십시오 (관리자가 강제합니다)."
 
-#: ../src/greeter-window.c:585
-msgid "You are required to change your password immediately (password expired)."
+#: ../src/greeter-window.c:625
+msgid ""
+"You are required to change your password immediately (password expired)."
 msgstr "암호를 긴급히 변경해 주십시오 (암호 기한이 끝났습니다)."
 
 # 주의, Linux-PAM 의 "Warning: your password will expire in %d day"의 번역의 일부분과 일치해야함
-#: ../src/greeter-window.c:591
+#: ../src/greeter-window.c:631
 msgid "your password will expire in"
 msgstr "일 이내로 끝납니다."
 
-#: ../src/greeter-window.c:615
+#: ../src/greeter-window.c:655
 msgid ""
 "Your password has expired.\n"
 "Please change your password immediately."
@@ -49,11 +51,11 @@ msgstr ""
 "비밀번호가 만료되었습니다.\n"
 "비밀번호를 즉시 변경해 주시기 바랍니다."
 
-#: ../src/greeter-window.c:617 ../src/greeter-window.c:627
+#: ../src/greeter-window.c:657 ../src/greeter-window.c:667
 msgid "Changing Password"
 msgstr "비밀번호 변경"
 
-#: ../src/greeter-window.c:625
+#: ../src/greeter-window.c:665
 msgid ""
 "Your password has been issued temporarily.\n"
 "For security reasons, please change your password immediately."
@@ -61,7 +63,7 @@ msgstr ""
 "임시로 발급된 비밀번호 입니다.\n"
 "보안을 위해서 비밀번호를 즉시 변경하십시오."
 
-#: ../src/greeter-window.c:638
+#: ../src/greeter-window.c:678
 #, c-format
 msgid ""
 "Please change your password for security.\n"
@@ -74,7 +76,7 @@ msgstr ""
 "수 없습니다.\n"
 "지금 비밀번호를 변경하시겠습니까?"
 
-#: ../src/greeter-window.c:644
+#: ../src/greeter-window.c:684
 #, c-format
 msgid ""
 "Please change your password for security.\n"
@@ -87,7 +89,7 @@ msgstr ""
 "수 없습니다.\n"
 "지금 비밀번호를 변경하시겠습니까?"
 
-#: ../src/greeter-window.c:651
+#: ../src/greeter-window.c:691
 msgid ""
 "Please change your password for security.\n"
 "If you do not change your password within a few days, your password "
@@ -100,15 +102,15 @@ msgstr ""
 "수 없습니다.\n"
 "지금 비밀번호를 변경하시겠습니까?"
 
-#: ../src/greeter-window.c:659
+#: ../src/greeter-window.c:699
 msgid "Change now"
 msgstr "지금 변경"
 
-#: ../src/greeter-window.c:659
+#: ../src/greeter-window.c:699
 msgid "Later"
 msgstr "나중에"
 
-#: ../src/greeter-window.c:670
+#: ../src/greeter-window.c:710
 #, c-format
 msgid ""
 "Your account will not be available after %s.\n"
@@ -117,7 +119,7 @@ msgstr ""
 "이 계정은 %s일 이후로 사용할 수 없습니다.\n"
 "계정 만료까지 %s일 남았습니다."
 
-#: ../src/greeter-window.c:674
+#: ../src/greeter-window.c:714
 #, c-format
 msgid ""
 "Your account will not be available after %s.\n"
@@ -126,7 +128,7 @@ msgstr ""
 "이 계정은 %s일 이후로 사용할 수 없습니다.\n"
 "계정 만료까지 %s일 남았습니다."
 
-#: ../src/greeter-window.c:692
+#: ../src/greeter-window.c:732
 #, c-format
 msgid ""
 "Your organization will not be available after %s.\n"
@@ -135,7 +137,7 @@ msgstr ""
 "이 계정이 속한 조직은 %s일 이후로 사용할 수 없습니다.\n"
 "조직 만료까지 %s일 남았습니다."
 
-#: ../src/greeter-window.c:696
+#: ../src/greeter-window.c:736
 #, c-format
 msgid ""
 "Your organization will not be available after %s.\n"
@@ -144,7 +146,7 @@ msgstr ""
 "이 계정이 속한 조직은 %s일 이후로 사용할 수 없습니다.\n"
 "조직 만료까지 %s일 남았습니다."
 
-#: ../src/greeter-window.c:714
+#: ../src/greeter-window.c:754
 #, c-format
 msgid ""
 "Your password will not be available after %s.\n"
@@ -153,7 +155,7 @@ msgstr ""
 "이 비밀번호는 %s일 이후로 사용할 수 없습니다.\n"
 "비밀번호 만료까지 %s일 남았습니다."
 
-#: ../src/greeter-window.c:718
+#: ../src/greeter-window.c:758
 #, c-format
 msgid ""
 "Your password will not be available after %s.\n"
@@ -162,27 +164,27 @@ msgstr ""
 "이 비밀번호는 %s일 이후로 사용할 수 없습니다.\n"
 "비밀번호 만료까지 %s일 남았습니다."
 
-#: ../src/greeter-window.c:736
+#: ../src/greeter-window.c:776
 msgid "Duplicate logins detected with the same ID."
 msgstr "동일 아이디로 중복로그인이 감지되었습니다."
 
-#: ../src/greeter-window.c:739
+#: ../src/greeter-window.c:779
 msgid "Client ID"
 msgstr "클라이언트 ID"
 
-#: ../src/greeter-window.c:744
+#: ../src/greeter-window.c:784
 msgid "Client Name"
 msgstr "클라이언트 이름"
 
-#: ../src/greeter-window.c:749
+#: ../src/greeter-window.c:789
 msgid "IP"
 msgstr "IP"
 
-#: ../src/greeter-window.c:754
+#: ../src/greeter-window.c:794
 msgid "Local IP"
 msgstr "로컬 IP"
 
-#: ../src/greeter-window.c:769
+#: ../src/greeter-window.c:809
 #, c-format
 msgid ""
 "Authentication Failure\n"
@@ -194,7 +196,7 @@ msgstr ""
 "로그인 시도 가능 횟수가 %s회 남았습니다.\n"
 "로그인 시도 최대 가능 횟수 초과시 더이상 로그인 할 수 없습니다."
 
-#: ../src/greeter-window.c:774
+#: ../src/greeter-window.c:814
 msgid ""
 "The user could not be authenticated due to an unknown error.\n"
 "Please contact the administrator."
@@ -202,7 +204,7 @@ msgstr ""
 "알 수 없는 오류로 인해 사용자를 인증할 수 없습니다.\n"
 "관리자에게 문의하십시오."
 
-#: ../src/greeter-window.c:782
+#: ../src/greeter-window.c:822
 msgid ""
 "This account has deleted and is no longer available.\n"
 "Please contact the administrator."
@@ -210,7 +212,7 @@ msgstr ""
 "이 계정은 삭제되어 더이상 사용할 수 없습니다.\n"
 "관리자에게 문의하십시오."
 
-#: ../src/greeter-window.c:788
+#: ../src/greeter-window.c:828
 msgid ""
 "You attempted to log in from an unregistered device.\n"
 "Please contact the administrator."
@@ -218,7 +220,7 @@ msgstr ""
 "등록되지 않은 기기에서 로그인을 시도하여 사용자를 인증할 수 없습니다.\n"
 "관리자에게 문의하십시오."
 
-#: ../src/greeter-window.c:794 ../src/greeter-window.c:1083
+#: ../src/greeter-window.c:834 ../src/greeter-window.c:1123
 msgid ""
 "Authentication Failure\n"
 "Please check the username and password and try again."
@@ -226,7 +228,7 @@ msgstr ""
 "로그인 실패 (사용자 인증 오류)\n"
 "사용자(ID) 및 비밀번호 확인 후 다시 시도해 주십시오."
 
-#: ../src/greeter-window.c:800
+#: ../src/greeter-window.c:840
 msgid ""
 "Login was denied because it violated the policy set by the GPMS.\n"
 "Please contact the administrator."
@@ -234,7 +236,7 @@ msgstr ""
 "GPMS에 IP 정책이 존재하지 않아 로그인이 거부되었습니다.\n"
 "관리자에게 문의하십시오."
 
-#: ../src/greeter-window.c:807
+#: ../src/greeter-window.c:847
 msgid ""
 "Login was denied because it violated the policy(Allowed IP) set by the "
 "GPMS.\n"
@@ -243,7 +245,7 @@ msgstr ""
 "GPMS에서 설정한 정책(허용 IP)에 위배되어 로그인이 거부되었습니다.\n"
 "관리자에게 문의하십시오."
 
-#: ../src/greeter-window.c:816
+#: ../src/greeter-window.c:856
 msgid ""
 "Your account has been locked because\n"
 "you have exceeded the number of login attempts.\n"
@@ -252,7 +254,7 @@ msgstr ""
 "로그인 시도 횟수를 초과하여 계정이 잠겼습니다.\n"
 "잠시 후 다시 시도해 주시기 바랍니다."
 
-#: ../src/greeter-window.c:825
+#: ../src/greeter-window.c:865
 msgid ""
 "This account has expired and is no longer available.\n"
 "Please contact the administrator."
@@ -260,7 +262,7 @@ msgstr ""
 "이 계정은 사용기간 만료로 더이상 사용할 수 없습니다.\n"
 "관리자에게 문의하여 주시기 바랍니다."
 
-#: ../src/greeter-window.c:833
+#: ../src/greeter-window.c:873
 msgid ""
 "The password for your account has expired.\n"
 "Please contact the administrator."
@@ -268,7 +270,7 @@ msgstr ""
 "비밀번호가 만료되어 로그인 할 수 없습니다.\n"
 "관리자에게 문의하여 주시기 바랍니다."
 
-#: ../src/greeter-window.c:841
+#: ../src/greeter-window.c:881
 msgid ""
 "You are already logged in.\n"
 "Log out of the other device and try again.\n"
@@ -277,7 +279,7 @@ msgstr ""
 "이미 로그인 된 사용자 입니다. 다른기기에서 로그아웃 후 다시 시도하십시오. 그"
 "래도 문제가 계속된다면 관리자에게 문의하십시오."
 
-#: ../src/greeter-window.c:850
+#: ../src/greeter-window.c:890
 msgid ""
 "Due to the expiration of your organization, this account is no longer "
 "available.\n"
@@ -286,7 +288,7 @@ msgstr ""
 "조직의 사용기간 만료로 이 계정은 더이상 사용할 수 없습니다.\n"
 "관리자에게 문의하여 주시기 바랍니다."
 
-#: ../src/greeter-window.c:859
+#: ../src/greeter-window.c:899
 msgid ""
 "Login attempts exceeded the number of times,\n"
 "so you cannot login for a certain period of time.\n"
@@ -295,17 +297,17 @@ msgstr ""
 "로그인 시도횟수를 초과하여 일정시간 접속할 수 없습니다.\n"
 "잠시 후 다시 시도해 주시기 바랍니다."
 
-#: ../src/greeter-window.c:868
+#: ../src/greeter-window.c:908
 msgid "Trial period has expired."
 msgstr "평가판 사용기간이 만료되었습니다."
 
-#: ../src/greeter-window.c:875
+#: ../src/greeter-window.c:915
 msgid "Time error occurred."
 msgstr ""
 "인터넷으로부터 시간을 가져오지 못했습니다.\n"
 "네트워크 연결 확인 후 다시 시도해 주시기 바랍니다."
 
-#: ../src/greeter-window.c:886
+#: ../src/greeter-window.c:926
 #, c-format
 msgid ""
 "The trial period is up to %s days.\n"
@@ -314,7 +316,7 @@ msgstr ""
 "평가판 사용기간이 %s까지 입니다.\n"
 "사용기간이 오늘 만료됩니다."
 
-#: ../src/greeter-window.c:889
+#: ../src/greeter-window.c:929
 #, c-format
 msgid ""
 "The trial period is up to %s days.\n"
@@ -323,7 +325,7 @@ msgstr ""
 "평가판 사용기간이 %s까지 입니다.\n"
 "만료까지 %s일 남았습니다."
 
-#: ../src/greeter-window.c:892
+#: ../src/greeter-window.c:932
 #, c-format
 msgid ""
 "The trial period is up to %s days.\n"
@@ -332,54 +334,54 @@ msgstr ""
 "평가판 사용기간이 %s까지 입니다.\n"
 "만료까지 %s일 남았습니다."
 
-#: ../src/greeter-window.c:896
+#: ../src/greeter-window.c:936
 msgid "The trial period is unknown."
 msgstr "평가판 사용기간을 확인할 수 없습니다."
 
 # 주의, Linux-PAM 의 "Current %s password: "의 번역과 동일
-#: ../src/greeter-window.c:929
+#: ../src/greeter-window.c:969
 msgid "Current password: "
 msgstr "현재 암호: "
 
-#: ../src/greeter-window.c:931
+#: ../src/greeter-window.c:971
 msgid "Changing Password - [Step 1]"
 msgstr "비밀번호 변경 [1단계]"
 
-#: ../src/greeter-window.c:932
+#: ../src/greeter-window.c:972
 msgid "Enter current password :"
 msgstr "현재 비밀번호 입력 :"
 
 # 주의, Linux-PAM / libpwquality의 "New %s password: " 의 번역과 동일
-#: ../src/greeter-window.c:934
+#: ../src/greeter-window.c:974
 msgid "New password: "
 msgstr "새 암호: "
 
-#: ../src/greeter-window.c:936
+#: ../src/greeter-window.c:976
 msgid "Changing Password - [Step 2]"
 msgstr "비밀번호 변경 [2단계]"
 
-#: ../src/greeter-window.c:937
+#: ../src/greeter-window.c:977
 msgid "Enter new password :"
 msgstr "새 비밀번호 입력 :"
 
 # 주의, Linux-PAM / libpwquality의 "Retype new %s password: " 의 번역과 동일
-#: ../src/greeter-window.c:939
+#: ../src/greeter-window.c:979
 msgid "Retype new password: "
 msgstr "새 암호 다시 입력: "
 
-#: ../src/greeter-window.c:941
+#: ../src/greeter-window.c:981
 msgid "Changing Password - [Step 3]"
 msgstr "비밀번호 변경 [3단계]"
 
-#: ../src/greeter-window.c:942
+#: ../src/greeter-window.c:982
 msgid "Retype new password :"
 msgstr "새 비밀번호 다시 입력:"
 
-#: ../src/greeter-window.c:979
+#: ../src/greeter-window.c:1019
 msgid "Failed to start session"
 msgstr "세션을 시작할 수 없습니다."
 
-#: ../src/greeter-window.c:1061
+#: ../src/greeter-window.c:1101
 msgid ""
 "Changing password is terminated because\n"
 "the current password does not match.\n"
@@ -389,7 +391,7 @@ msgstr ""
 "비밀번호 변경하기를 종료합니다.\n"
 "나중에 다시 시도하십시오."
 
-#: ../src/greeter-window.c:1065
+#: ../src/greeter-window.c:1105
 msgid ""
 "New password violates the security conformity,\n"
 "so the change of the password is terminated.\n"
@@ -399,7 +401,7 @@ msgstr ""
 "비밀번호 변경하기를 종료합니다.\n"
 "나중에 다시 시도하십시오."
 
-#: ../src/greeter-window.c:1069
+#: ../src/greeter-window.c:1109
 msgid ""
 "In Confirm New Password, the password did not match,\n"
 "so the change of password is terminated.\n"
@@ -409,52 +411,52 @@ msgstr ""
 "비밀번호 변경하기를 종료합니다.\n"
 "나중에 다시 시도하십시오."
 
-#: ../src/greeter-window.c:1708
+#: ../src/greeter-window.c:1748
 msgid "%B %-d %Y  %l:%M %p"
 msgstr "%Y년 %B %-d일  %p %l:%M"
 
-#: ../src/greeter-window.c:1969
+#: ../src/greeter-window.c:2030
 #, c-format
 msgid "Warning: There is still %d user logged in."
 msgid_plural "Warning: There are still %d users logged in."
 msgstr[0] "경고: %d명의 사용자가 로그인 되어 있습니다."
 msgstr[1] "경고: %d명의 사용자가 로그인 되어 있습니다."
 
-#: ../src/greeter-window.c:2031
+#: ../src/greeter-window.c:2092
 msgid "System Shutdown"
 msgstr "시스템 종료"
 
-#: ../src/greeter-window.c:2032
+#: ../src/greeter-window.c:2093
 msgid "Are you sure you want to close all programs and shut down the computer?"
 msgstr "모든 프로그램을 닫고 컴퓨터를 종료 하시겠습니까?"
 
-#: ../src/greeter-window.c:2044
+#: ../src/greeter-window.c:2105
 msgid "System Restart"
 msgstr "시스템 재시작"
 
-#: ../src/greeter-window.c:2045
+#: ../src/greeter-window.c:2106
 msgid "Are you sure you want to close all programs and restart the computer?"
 msgstr "모든 프로그램을 닫고 컴퓨터를 다시 시작하겠습니까?"
 
-#: ../src/greeter-window.c:2057
+#: ../src/greeter-window.c:2118
 msgid "System Suspend"
 msgstr "시스템 절전"
 
-#: ../src/greeter-window.c:2058
+#: ../src/greeter-window.c:2119
 msgid "Are you sure you want to suspend the computer?"
 msgstr "컴퓨터를 절전 모드로 전환하시겠습니까?"
 
-#: ../src/greeter-window.c:2070
+#: ../src/greeter-window.c:2131
 msgid "System Hibernate"
 msgstr "시스템 최대절전"
 
-#: ../src/greeter-window.c:2071
+#: ../src/greeter-window.c:2132
 msgid "Are you sure you want to hibernate the computer?"
 msgstr "컴퓨터를 최대 절전 모드로 전환하시겠습니까?"
 
 #: ../src/greeter-window.ui.h:1
-msgid "Login Gooroom"
-msgstr "구름에 로그인하세요"
+msgid "Login Hancom Gooroom"
+msgstr "한컴구름에 로그인하세요"
 
 #: ../src/greeter-window.ui.h:2
 msgid "Enter your username"

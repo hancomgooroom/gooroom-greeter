@@ -30,7 +30,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">Login Gooroom</property>
+            <property name="label" translatable="yes">Login Hancom Gooroom</property>
             <style>
               <class name="title-label"/>
             </style>
