@@ -1,3 +1,14 @@
+gooroom-greeter (4.0.0+grm4u1+han4u1) unstable; urgency=medium
+
+  [ boyeon.choi ]
+  * [24766010] Init Hancom4.0
+  * [5b33a376] [HGOOROOM-2322] Change the term '구름' to '한컴구름'
+
+  [ cjheo ]
+  * [96327a90] Change icon theme from 'Arc' to 'Hancom-Dark'
+
+ -- Gooroom Autobuilder <jenkins@gooroom.kr>  Thu, 29 Aug 2024 12:33:21 +0900
+
 gooroom-greeter (4.0.0+grm4u1) unstable; urgency=medium
 
   [ cjheo ]
